@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to GUN GAME</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Syncopate:wght@700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Reset & Base Setup */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #000000;
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            justify-content: space-between;
+            align-items: center;
+            overflow-x: hidden;
+            position: relative;
+            background-image: 
+                linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)),
+                linear-gradient(to right, #111 1px, transparent 1px),
+                linear-gradient(to bottom, #111 1px, transparent 1px);
+            background-size: 100% 100%, 40px 40px, 40px 40px;
+        }
+
+        /* Scanline Overlay for Tactical Monitor Effect */
+        body::after {
+            content: " ";
+            display: block;
+            position: fixed;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+            z-index: 99999;
+            background-size: 100% 4px, 6px 100%;
+            pointer-events: none;
+        }
+
+        /* Main Game Arena Container Box */
+        .container {
+            background: #050505;
+            border: 2px solid #ffffff;
+            padding: 3rem;
+            text-align: center;
+            max-width: 600px;
+            width: 90%;
+            margin: auto;
+            position: relative;
+            z-index: 1;
+            animation: pulseGlow 4s infinite alternate ease-in-out;
+        }
+
+        /* Tactical Crosshair Corner Accents */
+        .container::before, .container::after {
+            content: '';
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            border: 2px solid #ffffff;
+        }
+        /* Top Left Corner */
+        .container::before {
+            top: -6px;
+            left: -6px;
+            border-right: none;
+            border-bottom: none;
+        }
+        /* Bottom Right Corner */
+        .container::after {
+            bottom: -6px;
+            right: -6px;
+            border-left: none;
+            border-top: none;
+        }
+
+        /* Stark White Pulse Glow Animation */
+        @keyframes pulseGlow {
+            0% {
+                box-shadow: 0 0 15px rgba(255, 255, 255, 0.1), inset 0 0 15px rgba(255, 255, 255, 0.05);
+                border-color: rgba(255, 255, 255, 0.6);
+            }
+            100% {
+                box-shadow: 0 0 30px rgba(255, 255, 255, 0.3), inset 0 0 25px rgba(255, 255, 255, 0.1);
+                border-color: rgba(255, 255, 255, 1);
+            }
+        }
+
+        /* Status Badge */
+        .badge {
+            display: inline-block;
+            border: 1px solid #ffffff;
+            background: transparent;
+            color: #ffffff;
+            font-family: 'Syncopate', sans-serif;
+            font-size: 0.7rem;
+            letter-spacing: 3px;
+            padding: 0.5rem 1.2rem;
+            margin-bottom: 2rem;
+            font-weight: 700;
+        }
+
+        /* High-End Tech Typography */
+        h1 {
+            font-family: 'Syncopate', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-bottom: 1.5rem;
+            color: #ffffff;
+        }
+
+        p {
+            color: #a0a0a0;
+            font-size: 0.95rem;
+            line-height: 1.8;
+            margin-bottom: 2.5rem;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+        }
+
+        /* Tactical Sci-Fi UI Buttons Container */
+        .menu-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        /* Sleek Sci-Fi UI Tile Buttons */
+        .ui-btn {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: #ffffff;
+            font-family: 'Syncopate', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            padding: 1rem 2rem;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Hover Transitions */
+        .ui-btn:hover {
+            background: #ffffff;
+            color: #000000;
+            border-color: #ffffff;
+            transform: scale(1.03);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
+        }
+
+        /* Decorative bracket line inside the button layout */
+        .ui-btn::before {
+            content: '[';
+            position: absolute;
+            left: 15px;
+            opacity: 0;
+            transition: transform 0.3s, opacity 0.3s;
+            transform: translateX(10px);
+        }
+        .ui-btn::after {
+            content: ']';
+            position: absolute;
+            right: 15px;
+            opacity: 0;
+            transition: transform 0.3s, opacity 0.3s;
+            transform: translateX(-10px);
+        }
+
+        .ui-btn:hover::before {
+            opacity: 0.5;
+            transform: translateX(0);
+        }
+        .ui-btn:hover::after {
+            opacity: 0.5;
+            transform: translateX(0);
+        }
+
+        /* Footer */
+        footer {
+            width: 100%;
+            text-align: center;
+            padding: 2rem;
+            color: #444444;
+            font-family: 'Syncopate', sans-serif;
+            font-size: 0.65rem;
+            letter-spacing: 2px;
+            border-top: 1px solid #111;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="badge">SYSTEM SYSTEM SYSTEM</div>
+        <h1>Welcome to GUN GAME</h1>
+        <p>
+            This is my master coding hub. This terminal houses the core mechanics, system parameters, and logic engines powering my upcoming gameplay framework. Select an operation terminal below to initialize.
+        </p>
+
+        <div class="menu-actions">
+            <button class="ui-btn">Initialize Hub</button>
+            <button class="ui-btn">View Mechanics</button>
+        </div>
+    </div>
+
+    <footer>
+        Created by [YOUR NAME] in 2026
+    </footer>
+
+</body>
+</html>
